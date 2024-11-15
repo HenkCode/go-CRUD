@@ -12,6 +12,7 @@ import (
 
 func GetMovies(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(map[string]string{"message": "Thats all the Movies"})
 	json.NewEncoder(w).Encode(models.Movies)
 }
 
@@ -21,14 +22,13 @@ func GetMovie(w http.ResponseWriter, r *http.Request) {
 	for _, item := range models.Movies {
 		if item.ID == params["id"] {
 			json.NewEncoder(w).Encode(item)
-			break
+			return
 		}
-	}
-	http.Error(w, "Movie not found", http.StatusNotFound)
 }
 
 func CreateMovie(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(map[string]string{"message": "Create a new Movie"})
 	var movie models.Movie
 
 	_ = json.NewDecoder(r.Body).Decode(&movie)
@@ -45,6 +45,7 @@ func UpdateMovie(w http.ResponseWriter, r *http.Request) {
 	for index, item := range models.Movies {
 		if item.ID == params["id"] {
 			models.Movies = append(models.Movies[:index], models.Movies[index+1:]...)
+			json.NewEncoder(w).Encode(map[string]string{"message": "Movie is updated"})
 			var movie models.Movie
 
 			_ = json.NewDecoder(r.Body).Decode(&movie)
@@ -69,6 +70,5 @@ func DeleteMovie(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	json.NewEncoder(w).Encode(models.Movies)
-	http.Error(w, "Movie not found", http.StatusNotFound)
 	
 }
