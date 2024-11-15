@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/HenkCode/go-CRUD/app/handlers"
 	"github.com/gorilla/mux"
 )
 
@@ -12,7 +13,7 @@ func Run() {
 	r := mux.NewRouter()
 	port := ":8080"
 
-	r.HandleFunc("/movies", getMovies).Methods("GET")
+	r.HandleFunc("/movies", handlers.GetMovies).Methods("GET")
 	r.HandleFunc("/movies/{id}", getMovies).Methods("GET")
 	r.HandleFunc("/movies", createMovies).Methods("POST")
 	r.HandleFunc("/movies/{id}", updateMovies).Methods("PUT")
