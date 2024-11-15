@@ -14,10 +14,10 @@ func Run() {
 	port := ":8080"
 
 	r.HandleFunc("/movies", handlers.GetMovies).Methods("GET")
-	r.HandleFunc("/movies/{id}", getMovies).Methods("GET")
-	r.HandleFunc("/movies", createMovies).Methods("POST")
+	r.HandleFunc("/movies/{id}", handlers.GetMovie).Methods("GET")
+	r.HandleFunc("/movies", handlers.CreateMovies).Methods("POST")
 	r.HandleFunc("/movies/{id}", updateMovies).Methods("PUT")
-	r.HandleFunc("/movies/{id}", deleteMovies).Methods("DELETE")
+	r.HandleFunc("/movies/{id}", handlers.DeleteMovie).Methods("DELETE")
 
 	fmt.Printf("Starting Server at Port %s", port)
 	log.Fatal(http.ListenAndServe(port, r))
